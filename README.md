@@ -63,6 +63,8 @@ Target:
 is_churn
 
 
+## Notebooks
+
 ### notebooks/01_data_exploration.ipynb
 
 Initial exploration of:
