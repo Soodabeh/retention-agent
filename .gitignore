@@ -3,7 +3,7 @@
 .coverage
 .ipynb_checkpoints
 **/__pycache__/
-.python-version
+#.python-version
 *.pyc
 **/build
 
@@ -18,7 +18,7 @@
 
 # Raw data
 raw_data/
-*.csv
+#*.csv
 *.sqlite
 *.zip
 
