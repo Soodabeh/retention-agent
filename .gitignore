@@ -1,6 +1,3 @@
-#Ignore project data folder
-raw_data/
-
 # Standard python ignores
 *.egg-info
 .coverage
