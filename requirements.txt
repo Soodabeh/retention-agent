@@ -10,3 +10,7 @@ pandas
 matplotlib
 seaborn
 scikit-learn
+
+# For building the API
+fastapi
+uvicorn
