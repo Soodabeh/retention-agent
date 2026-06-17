@@ -60,7 +60,6 @@ def predict(
         SubtitlesEnabled=[SubtitlesEnabled]
     ))
 
-    test_payload = pd.DataFrame(X_pred)
     prediction, probability = pred(X_pred)
 
     print(prediction)
@@ -69,7 +68,3 @@ def predict(
         "churn_prediction": int(prediction[0]),
         "churn_probability": float(probability[0])
     }
-    #return{
-    #     "churn_prediction": 8,
-    #     "churn_probability": 9
-    #}
