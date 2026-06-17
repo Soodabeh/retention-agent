@@ -14,3 +14,6 @@ scikit-learn
 # For building the API
 fastapi
 uvicorn
+
+#Model dependencies
+xgboost
