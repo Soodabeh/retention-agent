@@ -2,7 +2,7 @@ import pandas as pd
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.utils import evaluate
+from interface.main import pred
 
 app = FastAPI()
 
@@ -60,9 +60,16 @@ def predict(
         SubtitlesEnabled=[SubtitlesEnabled]
     ))
 
-    prediction, probability = evaluate(X_pred)
+    test_payload = pd.DataFrame(X_pred)
+    prediction, probability = pred(X_pred)
 
+    print(prediction)
+    print(probability)
     return {
         "churn_prediction": int(prediction[0]),
         "churn_probability": float(probability[0])
     }
+    #return{
+    #     "churn_prediction": 8,
+    #     "churn_probability": 9
+    #}
