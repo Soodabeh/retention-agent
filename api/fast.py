@@ -1,9 +1,6 @@
-
-
 import pandas as pd
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from retention_agent.interface.main import pred
 
 app = FastAPI()
@@ -15,8 +12,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
 @app.get("/predict")
 def predict(
     AccountAge: int,
