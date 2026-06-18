@@ -22,9 +22,9 @@ def transform_columns(df: pd.DataFrame):
     return df
 
 
-def pickle(preprocessor, model, pipeline):
+def pickle(preprocessor, model):
     # 4. Serialize and export the pipeline artifact to your Shared Volume
-    BASE_PATH = '../models/'
+    BASE_PATH = os.environ["MODEL_PATH"]
     os.makedirs(BASE_PATH, exist_ok=True)
 
     preproc_export_path = BASE_PATH + 'xgb_churn_preproc_pipeline.pkl'
@@ -36,15 +36,11 @@ def pickle(preprocessor, model, pipeline):
     joblib.dump(model, model_export_path)
     print(f"Success! Saved model artifact to: {model_export_path}")
 
-    full_pipeline_export_path = BASE_PATH +'xgb_churn_pipeline.pkl'
 
-    joblib.dump(pipeline, full_pipeline_export_path)
-    print(f"Success! Saved full pipeline artifact to: {full_pipeline_export_path}")
-
-def evaluate(pipeline, X_test, y_test):
+def evaluate(preprocessor, model, X_test, y_test):
     # 3. Evaluate the model on unseen test data
-    y_pred = pipeline.predict(X_test)          # Hard classification: 0 (Stay) or 1 (Churn)
-    y_proba = pipeline.predict_proba(X_test)[:, 1] # Risk probabilities (e.g., 0.84)
+    y_pred = model.predict(X_test)          # Hard classification: 0 (Stay) or 1 (Churn)
+    y_proba = model.predict_proba(X_test)[:, 1] # Risk probabilities (e.g., 0.84)
 
     print("\n================ MODEL PERFORMANCE ================")
     print(classification_report(y_test, y_pred))
