@@ -1,23 +1,13 @@
 import joblib
-from retention_agent.params import MODEL_PATH
+import os
 
-model = joblib.load(MODEL_PATH)
+preprocessor = joblib.load(os.environ["MODEL_NAME_PREPROCESSOR"])
+model = joblib.load(os.environ["MODEL_NAME_XGB"])
 
 
 def pred(X_pred):
+    X_pred = preprocessor.transform(X_pred)
     prediction = model.predict(X_pred)
     probability = model.predict_proba(X_pred)[:, 1]
-
-    return prediction, probability
-
-
-#preprocessor = joblib.load("models/preprocessor.pkl")
-#model = joblib.load("models/model.pkl")
-
-#def pred(X_pred):
-    X_processed = preprocessor.transform(X_pred)
-
-    prediction = model.predict(X_processed)
-    probability = model.predict_proba(X_processed)[:, 1]
 
     return prediction, probability
