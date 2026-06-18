@@ -21,19 +21,32 @@ def transform_columns(df: pd.DataFrame):
     df.columns = clean_cols.str.lower().str.replace(r'_+', '_', regex=True)
     return df
 
+def load_raw_data():
+    data_descriptions = f'''{os.path.dirname(os.path.dirname(__file__))}/raw_data/data_descriptions.csv'''
+    data = f'''{os.path.dirname(os.path.dirname(__file__))}/raw_data/train.csv'''
+    print(data_descriptions)
+    print(data)
+    return data_descriptions, data
+
+def load_path_validation_data():
+    X = f'''{os.path.dirname(__file__)}/data/X.csv'''
+    y = f'''{os.path.dirname(__file__)}/data/y.csv'''
+    return X,y
 
 def pickle(preprocessor, model):
     # 4. Serialize and export the pipeline artifact to your Shared Volume
     os.makedirs(os.environ["MODEL_PATH"], exist_ok=True)
+    preproc_path = f'''{os.path.dirname(__file__)}/models/xgb_churn_preprocessor.pkl'''
+    model_path = f'''{os.path.dirname(__file__)}/models/xgb_churn_model.pkl'''
 
-    preproc_export_path = os.environ["MODEL_NAME_PREPROCESSOR"]
-    model_export_path = os.environ["MODEL_NAME_XGB"]
+    print(preproc_path)
+    print(model_path)
 
-    joblib.dump(preprocessor, preproc_export_path)
-    print(f"Success! Saved pipeline preprocessing artifact to: {preproc_export_path}")
+    joblib.dump(preprocessor, preproc_path)
+    print(f"Success! Saved pipeline preprocessing artifact to: {preproc_path}")
 
-    joblib.dump(model, model_export_path)
-    print(f"Success! Saved model artifact to: {model_export_path}")
+    joblib.dump(model, model_path)
+    print(f"Success! Saved model artifact to: {model_path}")
 
 
 def evaluate(preprocessor, model, X_test, y_test):
