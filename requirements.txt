@@ -11,6 +11,8 @@ matplotlib
 seaborn
 scikit-learn
 
+joblib
+
 # For building the API
 fastapi
 uvicorn
