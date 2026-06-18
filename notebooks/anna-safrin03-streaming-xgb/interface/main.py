@@ -1,8 +1,8 @@
 import os
 import joblib
 
-model = joblib.load(os.environ["MODEL_PATH"]+ 'xgb_churn_model.pkl')
-preprocessor = joblib.load(os.environ["MODEL_PATH"]+'xgb_churn_preproc_pipeline.pkl')
+model = joblib.load(os.environ["MODEL_PATH"]+ os.environ["MODEL_NAME_XGB"])
+preprocessor = joblib.load(os.environ["MODEL_PATH"]+os.environ["MODEL_NAME_PREPROCESSOR"])
 
 def pred(X_pred):
 
