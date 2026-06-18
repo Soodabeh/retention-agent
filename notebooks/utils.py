@@ -21,7 +21,7 @@ def transform_columns(df: pd.DataFrame):
     df.columns = clean_cols.str.lower().str.replace(r'_+', '_', regex=True)
     return df
 
-def load_raw_data():
+def load_path_raw_data():
     data_descriptions = f'''{os.path.dirname(os.path.dirname(__file__))}/raw_data/data_descriptions.csv'''
     data = f'''{os.path.dirname(os.path.dirname(__file__))}/raw_data/train.csv'''
     print(data_descriptions)
@@ -31,11 +31,16 @@ def load_raw_data():
 def load_path_validation_data():
     X = f'''{os.path.dirname(__file__)}/data/X.csv'''
     y = f'''{os.path.dirname(__file__)}/data/y.csv'''
+    print(X)
+    print(y)
     return X,y
 
 def load_path_preprocessor_and_model():
     preproc_path = f'''{os.path.dirname(__file__)}/models/xgb_churn_preprocessor.pkl'''
-    model_path = f'''{os.path.dirname(__file__)}/models/xgb_churn_model.pkl'''
+    model_path_xgb = f'''{os.path.dirname(__file__)}/models/xgb_churn_model.pkl'''
+    model_path_log_reg = f'''{os.path.dirname(__file__)}/models/log_reg_pipeline_soodabeh.pkl'''
+
+    model_path = model_path_xgb if os.path.exists(model_path_xgb) else model_path_log_reg
 
     print(preproc_path)
     print(model_path)
