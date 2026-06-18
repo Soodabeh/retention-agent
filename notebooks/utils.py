@@ -33,9 +33,17 @@ def load_path_validation_data():
     y = f'''{os.path.dirname(__file__)}/data/y.csv'''
     return X,y
 
+def load_path_preprocessor_and_model():
+    preproc_path = f'''{os.path.dirname(__file__)}/models/xgb_churn_preprocessor.pkl'''
+    model_path = f'''{os.path.dirname(__file__)}/models/xgb_churn_model.pkl'''
+
+    print(preproc_path)
+    print(model_path)
+    return preproc_path, model_path
+
 def pickle(preprocessor, model):
     # 4. Serialize and export the pipeline artifact to your Shared Volume
-    os.makedirs(os.environ["MODEL_PATH"], exist_ok=True)
+    os.makedirs("models/", exist_ok=True)
     preproc_path = f'''{os.path.dirname(__file__)}/models/xgb_churn_preprocessor.pkl'''
     model_path = f'''{os.path.dirname(__file__)}/models/xgb_churn_model.pkl'''
 
