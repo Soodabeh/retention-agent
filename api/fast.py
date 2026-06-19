@@ -34,6 +34,10 @@ def predict(
     ParentalControl: str,
     SubtitlesEnabled: str
 ):
+        # 💡 Optional trick instead of writing each column name manually:
+    # locals() gets us all of our arguments back as a dictionary
+    # https://docs.python.org/3/library/functions.html#locals
+    # X_pred = pd.DataFrame(locals(), index=[0])
 
     X_pred = pd.DataFrame(dict(
         AccountAge=[AccountAge],
