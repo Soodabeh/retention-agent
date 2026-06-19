@@ -4,6 +4,7 @@ COPY requirements.txt requirements.txt
 COPY api api
 COPY retention_agent retention_agent
 COPY notebooks/models notebooks/models
+COPY notebooks/utils.py notebooks/utils.py
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
