@@ -63,3 +63,7 @@ def predict(
         "churn_prediction": int(prediction[0]),
         "churn_probability": float(probability[0])
     }
+
+    @app.get("/")
+    def root():
+        return dict(greeting="Hello")
