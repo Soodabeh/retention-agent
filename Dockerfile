@@ -5,6 +5,7 @@ COPY api api
 COPY frontend frontend
 COPY retention_agent retention_agent
 COPY notebooks/models notebooks/models
+COPY notebooks/utils.py notebooks/utils.py
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
