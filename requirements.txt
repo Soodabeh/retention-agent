@@ -19,3 +19,7 @@ uvicorn
 
 #Model dependencies
 xgboost
+
+#KKBox model dependencies
+lightgbm==4.6.0
+shap==0.51.0
