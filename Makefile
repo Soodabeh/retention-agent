@@ -114,3 +114,28 @@ docker_deploy:
 		--memory $(GAR_MEMORY) \
 		--region $(GCP_REGION) \
 		--env-vars-file .env.yaml
+
+
+default: pytest
+
+# default: pylint pytest
+
+# pylint:
+# 	find . -iname "*.py" -not -path "./tests/test_*" | xargs -n1 -I {}  pylint --output-format=colorized {}; true
+
+pytest:
+	echo "no tests"
+
+# ----------------------------------
+#         LOCAL SET UP
+# ----------------------------------
+
+install_requirements:
+	@pip install -r requirements.txt
+
+# ----------------------------------
+#         HEROKU COMMANDS
+# ----------------------------------
+
+streamlit:
+	-@streamlit run app.py

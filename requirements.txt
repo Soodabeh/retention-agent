@@ -16,6 +16,10 @@ joblib
 # For building the API
 fastapi
 uvicorn
+requests
+
+#Frontend
+streamlit
 
 #Model dependencies
 xgboost
