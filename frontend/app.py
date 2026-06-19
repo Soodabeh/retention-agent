@@ -1,76 +1,89 @@
-import datetime
-import requests
 import streamlit as st
-import pandas as pd
+import requests
 
-# --- UI Header ---
-'''
-# TaxiFareModel Front
-'''
-st.markdown('### Parameters of the ride')
+st.set_page_config(page_title="Customer Churn Predictor", layout="wide")
 
-# --- Inputs ---
-d = st.date_input("When is your ride", datetime.date(2019, 7, 6))
-t = st.time_input('What time is your ride', datetime.time(8, 45))
-dt = datetime.datetime.combine(d, t).isoformat()
+st.title("📊 Customer Churn Risk Prediction")
+st.write("Fill in the customer metrics below to generate a real-time prediction.")
 
-# Added default values to make testing easier
-pickup_longitude = st.number_input('pickup_longitude', value=-73.950655)
-pickup_latitude = st.number_input('pickup_latitude', value=40.783282)
-dropoff_longitude = st.number_input('dropoff_longitude', value=-73.984365)
-dropoff_latitude = st.number_input('dropoff_latitude', value=40.769802)
-passenger_count = st.number_input('Passenger count', min_value=1, max_value=8, value=1)
+st.markdown("---")
 
+# Organize inputs into columns for a cleaner layout
+col1, col2, col3 = st.columns(3)
 
-# --- Map Visualization ---
-st.markdown('### Ride Map')
+with col1:
+    st.subheader("👤 Demographics & Account")
+    gender = st.selectbox("Gender", ["Female", "Male"])
+    account_age = st.number_input("Account Age (Months)", min_value=0, value=24)
+    subscription_type = st.selectbox("Subscription Type", ["Basic", "Standard", "Premium"])
+    payment_method = st.selectbox("Payment Method", ["Mailed check", "Electronic check", "Credit card", "Bank transfer"])
+    paperless_billing = st.selectbox("Paperless Billing", ["No", "Yes"])
 
-# Create a DataFrame with the coordinates named specifically 'lat' and 'lon' for st.map()
-map_data = pd.DataFrame({
-    'lat': [pickup_latitude, dropoff_latitude],
-    'lon': [pickup_longitude, dropoff_longitude]
-})
+with col2:
+    st.subheader("💰 Charges & Support")
+    monthly_charges = st.number_input("Monthly Charges ($)", min_value=0.0, value=79.99, step=0.01)
+    total_charges = st.number_input("Total Charges ($)", min_value=0.0, value=1919.76, step=0.01)
+    support_tickets = st.number_input("Support Tickets / Month", min_value=0, value=1)
+    user_rating = st.slider("User Rating", min_value=1.0, max_value=5.0, value=4.5, step=0.1)
 
-# Render the map
-st.map(map_data)
+with col3:
+    st.subheader("🎬 Usage & Content Preferences")
+    content_type = st.selectbox("Content Type", ["Movies", "TV Shows", "Both"])
+    genre_preference = st.selectbox("Genre Preference", ["Action", "Comedy", "Drama", "Sci-Fi", "Thriller"])
+    viewing_hours = st.number_input("Viewing Hours / Week", min_value=0.0, value=15.5, step=0.5)
+    avg_duration = st.number_input("Avg Viewing Duration (Mins)", min_value=0, value=120)
+    downloads = st.number_input("Downloads / Month", min_value=0, value=5)
+    watchlist_size = st.number_input("Watchlist Size", min_value=0, value=12)
 
-'''
-## Retrieve Prediction
-'''
-url = 'https://taxifare.lewagon.ai/predict'
+    st.markdown("**Device & Settings**")
+    device_registered = st.selectbox("Device Registered", ["Computer", "Mobile", "Tablet", "TV"])
+    multi_device = st.selectbox("Multi-Device Access", ["Yes", "No"])
+    parental_control = st.selectbox("Parental Control", ["No", "Yes"])
+    subtitles = st.selectbox("Subtitles Enabled", ["Yes", "No"])
 
-if url == 'https://taxifare.lewagon.ai/predict':
-    st.markdown('*Note: Using the default Le Wagon API.*')
+st.markdown("---")
 
-# --- API Call ---
-# A button ensures the API is only called when the user is ready
-if st.button("Get Fare Prediction"):
-
-    INPUT_DICT = {
-        "pickup_datetime": dt,
-        "pickup_longitude": float(pickup_longitude),
-        "pickup_latitude": float(pickup_latitude),
-        "dropoff_longitude": float(dropoff_longitude),
-        "dropoff_latitude": float(dropoff_latitude),
-        "passenger_count": int(passenger_count)
+# Predict button
+if st.button("🚀 Run Churn Prediction", use_container_width=True):
+    # Construct payload mapping exactly to your API expectations
+    payload = {
+        "AccountAge": int(account_age),
+        "MonthlyCharges": float(monthly_charges),
+        "TotalCharges": float(total_charges),
+        "SubscriptionType": subscription_type,
+        "PaymentMethod": payment_method,
+        "PaperlessBilling": paperless_billing,
+        "ContentType": content_type,
+        "MultiDeviceAccess": multi_device,
+        "DeviceRegistered": device_registered,
+        "ViewingHoursPerWeek": float(viewing_hours),
+        "AverageViewingDuration": float(avg_duration),
+        "ContentDownloadsPerMonth": int(downloads),
+        "GenrePreference": genre_preference,
+        "UserRating": float(user_rating),
+        "SupportTicketsPerMonth": int(support_tickets),
+        "Gender": gender,
+        "WatchlistSize": int(watchlist_size),
+        "ParentalControl": parental_control,
+        "SubtitlesEnabled": subtitles
     }
 
-    try:
-        # Use 'params' for GET requests to append data to the URL query string
-        response = requests.get(url, params=INPUT_DICT)
-        response.raise_for_status() # Catches HTTP errors (400, 500, etc.)
+    with st.spinner("Analyzing subscriber data..."):
+        try:
+            # Send GET request with parameters to FastAPI
+            response = requests.get("https://retention-agent-651418512573.europe-west1.run.app/predict", params=payload)
 
-        prediction = response.json()
+            if response.status_code == 200:
+                result = response.json()
+                st.success("### Prediction Successful!")
+                st.json(result)
+            else:
+                st.error(f"❌ API Error: Received status code {response.status_code}")
+                # This will show you what the backend's internal exception actually was
+                try:
+                    st.write(response.json())
+                except:
+                    st.code(response.text)
 
-        # Displaying the prediction cleanly
-        if 'fare' in prediction:
-            st.success(f"Predicted Fare: ${prediction['fare']:.2f}")
-        else:
-            st.warning("Fare not found in the response.")
-
-        # Optional: Hide raw JSON behind an expander to keep the UI clean
-        with st.expander("View raw JSON response"):
-            st.json(prediction)
-
-    except requests.exceptions.RequestException as e:
-        st.error(f"Failed to retrieve prediction from API: {e}")
+        except requests.exceptions.ConnectionError:
+            st.error("❌ Connection Failed. Make sure your FastAPI backend is running at `https://retention-agent-651418512573.europe-west1.run.app/predict`")
