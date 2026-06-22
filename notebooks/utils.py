@@ -46,6 +46,15 @@ def load_path_preprocessor_and_model():
     print(model_path)
     return preproc_path, model_path
 
+def load_path_kkbox_artifacts():
+    preproc_path   = f'''{os.path.dirname(__file__)}/models/kkbox_churn_lightgbm_preprocessor.pkl'''
+    model_path     = f'''{os.path.dirname(__file__)}/models/kkbox_churn_lightgbm.pkl'''
+    threshold_path = f'''{os.path.dirname(__file__)}/models/kkbox_churn_lightgbm_threshold.json'''
+    print(preproc_path)
+    print(model_path)
+    print(threshold_path)
+    return preproc_path, model_path, threshold_path
+
 def pickle(preprocessor, model):
     # 4. Serialize and export the pipeline artifact to your Shared Volume
     os.makedirs("models/", exist_ok=True)
