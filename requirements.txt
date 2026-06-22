@@ -9,7 +9,6 @@ numpy
 pandas
 matplotlib
 seaborn
-scikit-learn
 
 joblib
 
@@ -20,4 +19,8 @@ uvicorn
 #Model dependencies
 xgboost
 
+#KKBox model dependencies
+lightgbm==4.6.0
 shap==0.48.0
+scikit-learn==1.7.2
+scipy
