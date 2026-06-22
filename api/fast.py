@@ -1,7 +1,7 @@
 import pandas as pd
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
-from retention_agent.interface.main import pred
+from retention_agent.interface.main import pred, explain
 from retention_agent.interface.main_kkbox import pred_kkbox
 
 app = FastAPI()
@@ -65,6 +65,53 @@ def predict(
         "churn_probability": float(probability[0])
     }
 
+@app.get("/explain")
+def explain_prediction(
+    AccountAge: int,
+    MonthlyCharges: float,
+    TotalCharges: float,
+    SubscriptionType: str,
+    PaymentMethod: str,
+    PaperlessBilling: str,
+    ContentType: str,
+    MultiDeviceAccess: str,
+    DeviceRegistered: str,
+    ViewingHoursPerWeek: float,
+    AverageViewingDuration: float,
+    ContentDownloadsPerMonth: int,
+    GenrePreference: str,
+    UserRating: float,
+    SupportTicketsPerMonth: int,
+    Gender: str,
+    WatchlistSize: int,
+    ParentalControl: str,
+    SubtitlesEnabled: str
+):
+    X_pred = pd.DataFrame(dict(
+        AccountAge=[AccountAge],
+        MonthlyCharges=[MonthlyCharges],
+        TotalCharges=[TotalCharges],
+        SubscriptionType=[SubscriptionType],
+        PaymentMethod=[PaymentMethod],
+        PaperlessBilling=[PaperlessBilling],
+        ContentType=[ContentType],
+        MultiDeviceAccess=[MultiDeviceAccess],
+        DeviceRegistered=[DeviceRegistered],
+        ViewingHoursPerWeek=[ViewingHoursPerWeek],
+        AverageViewingDuration=[AverageViewingDuration],
+        ContentDownloadsPerMonth=[ContentDownloadsPerMonth],
+        GenrePreference=[GenrePreference],
+        UserRating=[UserRating],
+        SupportTicketsPerMonth=[SupportTicketsPerMonth],
+        Gender=[Gender],
+        WatchlistSize=[WatchlistSize],
+        ParentalControl=[ParentalControl],
+        SubtitlesEnabled=[SubtitlesEnabled]
+    ))
+
+    return explain(X_pred, top_n=5)
+  
+  
 @app.get("/predict_kkbox")
 def predict_kkbox(
     city: int,
