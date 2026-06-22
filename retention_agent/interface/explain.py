@@ -76,10 +76,7 @@ def add_rule_based_messages(top_drivers):
 
     return explained_drivers
 
-
-
 # SHAP Explainer
-
 
 def build_log_reg_explainer(pipeline, X_background, background_size=500):
     preprocessor = pipeline.named_steps["preprocessor"]

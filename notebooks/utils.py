@@ -90,3 +90,8 @@ def evaluate_with_segmentation(preprocessor, segmentation, model, X_test, y_test
     print(f"ROC-AUC Score: {roc_auc_score(y_test, y_proba):.4f}")
     print("=====================================================")
     return y_pred, y_proba
+
+def load_path_shap_background():
+    shap_background_path = f'''{os.path.dirname(__file__)}/models/shap_background.pkl'''
+    print(shap_background_path)
+    return shap_background_path
