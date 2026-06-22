@@ -82,3 +82,20 @@ def evaluate(preprocessor, model, X_test, y_test):
     print(f"ROC-AUC Score: {roc_auc_score(y_test, y_proba):.4f}")
     print("============================================= =======")
     return y_pred, y_proba
+
+def evaluate_with_segmentation(preprocessor, segmentation, model, X_test, y_test):
+    # 1. Transform raw text/numerical data into preprocessed features (38 columns)
+    X_test = preprocessor.transform(X_test)
+
+    # 2. 💡 Run the clustering transformer to append 'ClusterLabel' (making it 39 columns)
+    X_test = segmentation.transform(X_test)
+
+    # 3. Predict safely now that all feature names match perfectly
+    y_pred = model.predict(X_test)              # Hard classification: 0 (Stay) or 1 (Churn)
+    y_proba = model.predict_proba(X_test)[:, 1] # Risk probabilities (e.g., 0.84)
+
+    print("\n================ MODEL PERFORMANCE ================")
+    print(classification_report(y_test, y_pred))
+    print(f"ROC-AUC Score: {roc_auc_score(y_test, y_proba):.4f}")
+    print("=====================================================")
+    return y_pred, y_proba
