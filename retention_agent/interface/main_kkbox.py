@@ -50,7 +50,7 @@ ENCODED_TO_ORIGINAL = {name: _encoded_to_original(name) for name in feature_name
 
 # SHAP explainer — built at startup, NOT loaded from pkl.
 # TreeExplainer is fast to construct on a fitted tree model, and pickling
-# it would couple the artifact to a specific shap library version.
+# it would couple the artifact to a specific SHAP library version.
 explainer = shap.TreeExplainer(model)
 
 
