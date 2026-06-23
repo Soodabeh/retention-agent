@@ -110,8 +110,8 @@ def explain_prediction(
     ))
 
     return explain(X_pred, top_n=5)
-  
-  
+
+
 @app.get("/predict_kkbox")
 def predict_kkbox(
     city: int,
