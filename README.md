@@ -100,28 +100,20 @@ The **Intelligent Customer Retention Agent** addresses this challenge by providi
 
 ```mermaid
 flowchart TD
+    A[Streamlit Frontend] --> B[FastAPI Backend<br/>Google Cloud Run]
 
-A[Streamlit Frontend]
+    B --> C[Behavioral Predictor<br/>Logistic Regression]
+    B --> D[Transactional Predictor<br/>LightGBM]
 
-B[FastAPI Backend<br/>Cloud Run]
+    C --> E[Prediction]
+    D --> E
 
-C[Behavioral Predictor<br/>Logistic Regression]
+    E --> F[SHAP Explanations]
 
-D[Transactional Predictor<br/>LightGBM]
+    F --> G[Gemini]
+    G --> H[Personalized Retention Recommendations]
 
-E[SHAP Explainability]
-
-F[Google Gemini<br/>Retention Recommendations]
-
-A --> B
-
-B --> C
-B --> D
-
-C --> E
-D --> E
-
-E --> F
+    H --> I[Streamlit Interface]
 ```
 
 ## Data Sources
