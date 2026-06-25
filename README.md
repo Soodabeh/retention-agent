@@ -1,10 +1,10 @@
 ### Data Pipeline & Architecture
 
-# AI Customer Retention Intelligence
+# Intelligent Customer Retention Agent
 
 ## Overview
 
-The **Customer Retention Analytics Agent** is an AI-powered decision support platform designed to help subscription-based businesses identify customers who are at risk of churning before they leave.
+The **Intelligent Customer Retention Agent** is an AI-powered decision support platform designed to help subscription-based businesses identify customers who are at risk of churning before they leave.
 
 The platform combines **machine learning**, **explainable AI**, and **generative AI** to not only predict customer churn, but also explain the factors driving each prediction and generate personalized retention recommendations.
 
@@ -21,7 +21,7 @@ Both prediction engines provide:
 - Interactive Streamlit web application
 - FastAPI backend for scalable model deployment
 
-The goal of the Customer Retention Analytics Agent is to transform customer data into actionable business insights, enabling organizations to move from **reactive customer retention** to **proactive, data-driven decision making**.
+The goal of the Intelligent Customer Retention Agent is to transform customer data into actionable business insights, enabling organizations to move from **reactive customer retention** to **proactive, data-driven decision making**.
 
 
 ## Problem Statement
@@ -38,7 +38,7 @@ Many organizations collect large amounts of customer data but struggle to answer
 
 The challenge is further complicated by the fact that different businesses have access to different types of customer data. Some organizations primarily collect customer engagement and behavioral information, while others maintain detailed subscription and transaction histories.
 
-The **Customer Retention Analytics Agent** addresses this challenge by providing two specialized prediction engines, allowing businesses to generate accurate churn predictions using the data they already possess while providing transparent explanations and AI-generated retention strategies.
+The **Intelligent Customer Retention Agent** addresses this challenge by providing two specialized prediction engines, allowing businesses to generate accurate churn predictions using the data they already possess while providing transparent explanations and AI-generated retention strategies.
 
 
 ## Features
@@ -50,6 +50,13 @@ The **Customer Retention Analytics Agent** addresses this challenge by providing
 - 🔍 SHAP-based explainability for every prediction
 - ✨ AI-generated retention strategies using Google Gemini
 - 🐳 Dockerized application for reproducible deployment
+
+
+## Live Demo
+
+- **Application:** https://retention-agent-lewagon.streamlit.app/
+- **Backend Repository:** https://github.com/Soodabeh/retention-agent
+- **Frontend Repository:** https://github.com/annamorgiel/frontend-retention-agent
 
 
 ## Demo
@@ -89,13 +96,6 @@ The **Customer Retention Analytics Agent** addresses this challenge by providing
 ![Gemini Summary](images/gemini-2.png)
 
 
-## Live Demo
-
-- **Application:** https://retention-agent-lewagon.streamlit.app/
-- **Backend Repository:** https://github.com/Soodabeh/retention-agent
-- **Frontend Repository:** https://github.com/annamorgiel/frontend-retention-agent
-
-
 ## Architecture
 
 ```mermaid
@@ -123,7 +123,7 @@ graph TD
 
 ## Data Sources
 
-The Customer Retention Analytics Agent supports two independent prediction pipelines, each trained on a different customer churn dataset.
+The Intelligent Customer Retention Agent supports two independent prediction pipelines, each trained on a different customer churn dataset.
 
 ### API 1 – Behavioral Predictor
 
@@ -195,7 +195,7 @@ This allows organizations to obtain accurate churn predictions using the custome
 
 ## Methodology
 
-The Customer Retention Analytics Agent consists of two independent machine learning pipelines, each designed for a different type of customer data.
+The Intelligent Customer Retention Agent consists of two independent machine learning pipelines, each designed for a different type of customer data.
 
 ### API 1 – Behavioral Predictor
 
@@ -234,7 +234,7 @@ The final production models were selected based on their performance on unseen t
 
 ## Business Value
 
-The Customer Retention Analytics Agent helps subscription-based businesses transform customer data into actionable retention insights.
+The Intelligent Customer Retention Agent helps subscription-based businesses transform customer data into actionable retention insights.
 
 By combining machine learning, explainable AI, and generative AI, the platform enables organizations to:
 
@@ -249,7 +249,7 @@ Rather than reacting after customers have already left, businesses can proactive
 
 ## Tech Stack
 
-The Customer Retention Analytics Agent was developed using the following technologies:
+The Intelligent Customer Retention Agent was developed using the following technologies:
 
 | Category | Technologies |
 |----------|--------------|
@@ -266,7 +266,7 @@ The Customer Retention Analytics Agent was developed using the following technol
 
 
 ## Future Roadmap
-Potential future enhancements to the Customer Retention Analytics Agent include:
+Potential future enhancements to the Intelligent Customer Retention Agent include:
 
 - Integration with Customer Relationship Management (CRM) systems such as Salesforce or HubSpot.
 - Real-time churn prediction using live customer data.
@@ -278,3 +278,10 @@ Potential future enhancements to the Customer Retention Analytics Agent include:
 
 
 ## Contributors
+
+This project was developed as part of the Le Wagon Data Science & AI Bootcamp by:
+
+- **Charlotte Welge** ([@SchottiW](https://github.com/SchottiW))
+- **Soodabeh Bahrekazemi** ([@Soodabeh](https://github.com/Soodabeh))
+- **Anna Morgiel** ([@annamorgiel](https://github.com/annamorgiel))
+- **Natalia Zargaran** ([@nykucherenko-gif](https://github.com/nykucherenko-gif))
