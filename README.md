@@ -98,22 +98,31 @@ The **Intelligent Customer Retention Agent** addresses this challenge by providi
 
 ## Architecture
 
-Streamlit Frontend
-                        │
-                        ▼
-            FastAPI Backend (Cloud Run)
-                        │
-        ┌───────────────┴───────────────┐
-        ▼                               ▼
- Behavioral Predictor           Transactional Predictor
- (Logistic Regression)              (LightGBM)
-        │                               │
-        └───────────────┬───────────────┘
-                        ▼
-              SHAP Explainability
-                        │
-                        ▼
-        Gemini Retention Recommendations
+```mermaid
+flowchart TD
+
+A[Streamlit Frontend]
+
+B[FastAPI Backend<br/>Cloud Run]
+
+C[Behavioral Predictor<br/>Logistic Regression]
+
+D[Transactional Predictor<br/>LightGBM]
+
+E[SHAP Explainability]
+
+F[Google Gemini<br/>Retention Recommendations]
+
+A --> B
+
+B --> C
+B --> D
+
+C --> E
+D --> E
+
+E --> F
+```
 
 ## Data Sources
 
