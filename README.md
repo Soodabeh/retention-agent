@@ -98,28 +98,22 @@ The **Intelligent Customer Retention Agent** addresses this challenge by providi
 
 ## Architecture
 
-```mermaid
-graph TD
-    A[(Processed Data Volume)]
-    B[Build Scikit-Learn Preprocessing Pipelines]
-    C[Train XGBoost Classifier]
-    D[Serialize Models & Pipelines to .pkl via joblib]
-    E[Develop SHAP Explainability Logic]
-    F[(Shared Model Volume)]
-
-    %% Connections
-    A --> B
-    B --> C
-    C --> D
-    C --> E
-    D --> F
-    E --> F
-
-    %% Styling to match original system
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style F fill:#bbf,stroke:#333,stroke-width:2px
-    style F fill:#bbf,stroke:#333,stroke-width:2px
-```
+Streamlit Frontend
+                        │
+                        ▼
+            FastAPI Backend (Cloud Run)
+                        │
+        ┌───────────────┴───────────────┐
+        ▼                               ▼
+ Behavioral Predictor           Transactional Predictor
+ (Logistic Regression)              (LightGBM)
+        │                               │
+        └───────────────┬───────────────┘
+                        ▼
+              SHAP Explainability
+                        │
+                        ▼
+        Gemini Retention Recommendations
 
 ## Data Sources
 
