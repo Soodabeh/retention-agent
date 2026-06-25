@@ -56,29 +56,37 @@ The **Customer Retention Analytics Agent** addresses this challenge by providing
 
 ### Homepage
 
-
+![Homepage](images/homepage.png)
 
 ---
 
 ### Behavioral Predictor
 
-
+![Behavioral Predictor](images/API-1.png)
 
 ---
 
 ### Transactional Predictor
 
+![Behavioral Predictor](images/API-2.png)
 
 ---
 
 ### SHAP Explainability
 
+![SHAP](images/SHAP.png)
 
+---
+
+### Gemini Summary
+
+![Gemini Summary](images/gemini-1.png)
 
 ---
 
 ### Gemini Recommendations
 
+![Gemini Summary](images/gemini-2.png)
 
 
 ## Live Demo
